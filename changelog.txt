@@ -6,6 +6,10 @@ Key:
 = : Change / Fix
 + : Added feature
 
+3.0.1 24th Feb 2014
+= Had left a debug message in ADHD, which was breaking stuff.
+  Hotfix
+
 3.0.0 24th Feb 2014
 + New in-app Instructions link to Wiki on GitHub.
 = NEW IMPROVED bindings tab with ADHD 3.0.0
