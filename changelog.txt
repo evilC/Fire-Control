@@ -6,7 +6,7 @@ Key:
 = : Change / Fix
 + : Added feature
 
-3.0.0
+3.0.0 24th Feb 2014
 + New in-app Instructions link to Wiki on GitHub.
 = NEW IMPROVED bindings tab with ADHD 3.0.0
 ! All your existing bindings will be lost.
