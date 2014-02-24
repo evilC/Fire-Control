@@ -7,15 +7,18 @@ Key:
 + : Added feature
 
 3.0.0
-= NEW IMPROVED bindings tab
++ New in-app Instructions link to Wiki on GitHub.
+= NEW IMPROVED bindings tab with ADHD 3.0.0
 ! All your existing bindings will be lost.
   Sorry about that, gives you a chance to test the new bindings system though.
-= Arm lock toggle "L" setting changed to lowercase - "l".
+= Arm lock toggle "L" setting now sends lowercase - "l".
   The uppercase L setting was also holding shift.
 = Fixed startup so firectrl_init only runs once.
-+ Added groupmode()
-+ Added reset()
-+ added stagger()
++ Added Fire sequence subcommands:
+  groupmode()
+  reset
+  stagger()
+  See the new instructions link for info on usage
 
 2.18 5th Jan 2014
 + Adjusted Jump Jet Spam timing.
