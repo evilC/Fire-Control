@@ -36,7 +36,7 @@ SetKeyDelay, 0, 50
 
 ; Stuff for the About box
 
-ADHD.config_about({name: "Fire Control", version: "3.0.3", author: "evilC", link: "<a href=""https://github.com/evilC/Fire-Control/wiki"">Instructions</a>   /   <a href=""http://mwomercs.com/forums/topic/125457-"">Discussion Thread</a>"})
+ADHD.config_about({name: "Fire Control", version: "3.0.4", author: "evilC", link: "<a href=""https://github.com/evilC/Fire-Control/wiki"">Instructions</a>   /   <a href=""http://mwomercs.com/forums/topic/125457-"">Discussion Thread</a>"})
 ; The default application to limit hotkeys to.
 ; Starts disabled by default, so no danger setting to whatever you want
 ADHD.config_limit_app("CryENGINE")
@@ -126,6 +126,7 @@ last_divider := 1
 arm_lock_toggle_mode := false
 weapon_toggle_mode := false
 jj_active := 0
+disable_hotkeys := 0
 
 ; Turn off scroll lock if it is used to indicate a status
 if (ScrollLockSetting != "None"){
@@ -333,6 +334,15 @@ firectrl_init(){
 
 ; Gets called when the "Limited" app gets focus
 app_active_hook(){
+	global ADHD
+	global disable_hotkeys
+
+	curr_size := ADHD.limit_app_get_size()
+	if (curr_size.w == 1286 || curr_size.h == 748){
+		disable_hotkeys := 1
+	} else {
+		disable_hotkeys := 0
+	}
 	return
 }
 
@@ -345,6 +355,7 @@ app_inactive_hook(){
 ; Fired when the limited app changes resolution. Useful for some games that have a windowed matchmaker and fullscreen game
 resolution_changed_hook(){
 	global ADHD
+	global disable_hotkeys
 	
 	curr_size := ADHD.limit_app_get_size()
 	last_size := ADHD.limit_app_get_last_size()
@@ -352,11 +363,13 @@ resolution_changed_hook(){
 	if (curr_size.w > last_size.w || curr_size.h > last_size.h){
 		; Got larger - lobby to game
 		ADHD.debug("FC: Res got bigger")
+		; enable hotkeys
+		disable_hotkeys := 0
 	} else {
-		; Got smaller game to lobby
+		; Got smaller
 		ADHD.debug("FC: Res got smaller")
-		firectrl_init()
-		Gosub, DisableTimers		
+		;firectrl_init()
+		;Gosub, DisableTimers		
 	}
 	return
 }
@@ -370,6 +383,9 @@ resolution_changed_hook(){
 
 ; Fired on key down
 Fire:
+	if (disable_hotkeys){
+		return
+	}
 	; This is a key that may be held down, so we need to handle keyboard repeat.
 	; If a keyboard key is held down - windows will repeat that character.
 	if (fire_on == 0){
@@ -431,6 +447,9 @@ ChangeFireRate:
 
 ; Set up Hotkey 3
 WeaponToggle:
+	if (disable_hotkeys){
+		return
+	}
 	if (weapon_toggle_mode){
 		Gosub, DisableToggle
 	} else {
@@ -439,6 +458,9 @@ WeaponToggle:
 	return
 
 ArmLockToggle:
+	if (disable_hotkeys){
+		return
+	}
 	if (arm_lock_toggle_mode){
 		Gosub, DisableArmLockToggle
 	} else {
@@ -447,6 +469,9 @@ ArmLockToggle:
 	return
 
 JumpJetSpam:
+	if (disable_hotkeys){
+		return
+	}
 	if (!jj_active){
 		jj_active := 1
 		SetTimer, do_jj, %JumpJetRate%

@@ -6,6 +6,11 @@ Key:
 = : Change / Fix
 + : Added feature
 
+3.0.4 25th Feb 2014
+= Hotkeys should no longer fire on the MWO login screen.
+  eg no more L in the login box if you use Shift!
+  If this feature does not work for you (or all hotkeys stop working!),please let me know.
+
 3.0.3 25th Feb 2014
 = Jump Jet Spam was not disabling on tab out.
   Fixed
