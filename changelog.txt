@@ -6,6 +6,9 @@ Key:
 = : Change / Fix
 + : Added feature
 
+3.0.2 25th Feb 2014
+= Timers etc disabled when you tab out of game.
+
 3.0.1 24th Feb 2014
 = Had left a debug message in ADHD, which was breaking stuff.
   Hotfix

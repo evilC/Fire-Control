@@ -2,6 +2,7 @@
 
 /*
 ToDo:
+* Arm Lock toggle option to hotkey box or plain edit box
 
 BUGS:
 
@@ -34,7 +35,7 @@ SetKeyDelay, 0, 50
 
 ; Stuff for the About box
 
-ADHD.config_about({name: "Fire Control", version: "3.0.1", author: "evilC", link: "<a href=""https://github.com/evilC/Fire-Control/wiki"">Instructions</a>   /   <a href=""http://mwomercs.com/forums/topic/125457-"">Discussion Thread</a>"})
+ADHD.config_about({name: "Fire Control", version: "3.0.2", author: "evilC", link: "<a href=""https://github.com/evilC/Fire-Control/wiki"">Instructions</a>   /   <a href=""http://mwomercs.com/forums/topic/125457-"">Discussion Thread</a>"})
 ; The default application to limit hotkeys to.
 ; Starts disabled by default, so no danger setting to whatever you want
 ADHD.config_limit_app("CryENGINE")
