@@ -2,8 +2,6 @@
 
 /*
 ToDo:
-* Removed "disable timers" functionality from ADHD last release.
-  Bad move? FC Timed fire getting stuck on after Alt-Tab?
 
 BUGS:
 
@@ -267,15 +265,14 @@ firectrl_init(){
 	global arm_lock_toggle_mode
 	global fire_on := 0
 	
-	; Only release toggle keys if we are not in program mode
-	;if (!ADHD.get_program_mode()){
-		if (arm_lock_toggle_mode){
-			Gosub, DisableArmLockToggle
-		}
-		if (weapon_toggle_mode){
-			Gosub, DisableToggle
-		}
-	;}
+	gosub, DisableTimers
+
+	if (arm_lock_toggle_mode){
+		Gosub, DisableArmLockToggle
+	}
+	if (weapon_toggle_mode){
+		Gosub, DisableToggle
+	}
 	
 	; This gets called in Program Mode, so now would be a good time to re-initialize
 	
@@ -328,23 +325,8 @@ app_active_hook(){
 ; Gets called when the "Limited" app loses focus
 app_inactive_hook(){
 	firectrl_init()
-	Gosub, DisableTimers
 }
 
-; Gets called when we enter program mode
-program_mode_on_hook(){
-	Gosub, DisableTimers
-}
-
-; Gets called when we exit program mode
-program_mode_off_hook(){
-	global ADHD
-	; called at start, so do not run if ADHD is starting up
-	if (!ADHD.is_starting_up()){
-		firectrl_init()
-		Gosub, DisableTimers
-	}
-}
 
 ; Fired when the limited app changes resolution. Useful for some games that have a windowed matchmaker and fullscreen game
 resolution_changed_hook(){
