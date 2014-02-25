@@ -41,7 +41,7 @@ ADHD.config_about({name: "Fire Control", version: "3.0.2", author: "evilC", link
 ADHD.config_limit_app("CryENGINE")
 
 ; GUI size
-ADHD.config_size(450,320)
+ADHD.config_size(375,320)
 
 ; Configure update notifications:
 ADHD.config_updates("http://evilc.com/files/ahk/mwo/firectrl/firectrl.au.txt")
@@ -85,9 +85,10 @@ Gui, Tab, 1
 ; Otherwise, for GUI items that do not need to be saved, create them as normal
 
 ; Create normal label
+fs_w := ADHD.private.gui_w - 135
 Gui, Add, Text, x5 y40, Fire Sequence
 ; Create Edit box that has state saved in INI
-ADHD.gui_add("Edit", "FireSequence", "xp+120 yp-2 W300", "", "")
+ADHD.gui_add("Edit", "FireSequence", "xp+120 yp-2 W" fs_w, "", "")
 ; Create tooltip by adding _TT to the end of the Variable Name of a control
 FireSequence_TT := "A comma separated list of keys to hit - eg 1,2,3,4"
 
@@ -144,8 +145,18 @@ return
 DoFire:
 	now := A_TickCount
 	out := fire_array[current_weapon]
+
+	if FireRate is not integer
+		return
+	if (FireRate <= 0 || out == ""){
+		return
+	}
+	
 	if (groupmode){
 		tmp := groupmode_array[1]
+		if (tmp == ""){
+			return
+		}
 		Send {%tmp% down}
 	} else {
 		; If it is the first shot, process stagger...
@@ -181,7 +192,7 @@ SetFireTimer(mode,delay){
 	global nextfire
 	global fire_divider
 	global last_divider
-	
+
 	; Set last_divider, so we tell when the fire_divider changes
 	last_divider := fire_divider
 	
