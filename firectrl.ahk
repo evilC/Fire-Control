@@ -2,6 +2,7 @@
 
 /*
 ToDo:
+* Disable hotkeys (eg Arm Lock Toggle) in login screen? Should be able to detect specific window size
 * Arm Lock toggle option to hotkey box or plain edit box
 
 BUGS:
@@ -88,7 +89,7 @@ Gui, Tab, 1
 fs_w := ADHD.private.gui_w - 135
 Gui, Add, Text, x5 y40, Fire Sequence
 ; Create Edit box that has state saved in INI
-ADHD.gui_add("Edit", "FireSequence", "xp+120 yp-2 W" fs_w, "", "")
+ADHD.gui_add("Edit", "FireSequence", "xp+120 yp-2 W" fs_w                       , "", "")
 ; Create tooltip by adding _TT to the end of the Variable Name of a control
 FireSequence_TT := "A comma separated list of keys to hit - eg 1,2,3,4"
 
@@ -251,6 +252,7 @@ DisableArmLockToggle:
 ; Keep all timer disables in here so various hooks and stuff can stop all your timers easily.
 DisableTimers:
 	SetTimer, DoFire, Off
+	SetTimer, do_jj, Off
 	return
 
 ; Hook functions. We declared these in the config phase - so make sure these names match the ones defined above

@@ -6,8 +6,12 @@ Key:
 = : Change / Fix
 + : Added feature
 
+3.0.3 25th Feb 2014
+= Jump Jet Spam was not disabling on tab out.
+  Fixed
+
 3.0.2 25th Feb 2014
-= Timers etc disabled when you tab out of game.
+= Timers etc disabled when you tab out of game.         
 = If you have nothing in the Fire Sequence or a non-numeric entry in the Fire Rate box, but do have something bound to Fire...
   Nothing will now happen.
 = Fire Control is back to it's previous v2.x width
