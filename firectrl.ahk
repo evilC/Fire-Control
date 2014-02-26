@@ -92,22 +92,28 @@ Gui, Add, GroupBox, x5 y30 w365 h90, Fire Timing
 Gui, Add, Text, x10 y45, Fire Sequence
 
 ; Create Edit box that has state saved in INI
-ADHD.gui_add("Edit", "FireSequence", "xp+115 yp-2 W" fs_w                       , "", "")
+ADHD.gui_add("Edit", "FireSequence", "xp+115 yp-2 W" fs_w, "", "")
 ; Create tooltip by adding _TT to the end of the Variable Name of a control
 FireSequence_TT := "A comma separated list of keys to hit - eg 1,2,3,4"
 
 Gui, Add, Text, x10 yp+30, Fire Rate (ms)
 ADHD.gui_add("Edit", "FireRate", "xp+115 yp-2 W50", "", 100)
+FireRate_TT := "The rate at which to fire (in milliseconds)"
 
-ADHD.gui_add("CheckBox", "LimitFire", "x10 yp+25", "Limit fire rate to specified rate (Stop 'Over-Clicking')", 0)
+ADHD.gui_add("CheckBox", "KeyupOnFire", "xp+80 yp+4", "Send key up on Fire", 0)
+KeyupOnFire_TT := "If enabled, when you press the key bound to the Fire action, an up event is sent for that key.`nThis has the effect of stopping it from triggering actions in MWO.`n`nFor example, If the Fire action was bound to Right Mouse (RMB)...`nOFF: When you press RMB, weapon group 2 will fire in addition to the Fire Sequence.`nON: When you press RMB, weapon group 2 will not fire, but the Fire Sequence will."
+
+ADHD.gui_add("CheckBox", "LimitFire", "x10 yp+21", "Limit fire rate to specified rate (Stop 'Over-Clicking')", 0)
 
 Gui, Add, GroupBox, x5 yp+30 w365 h70, Toggles
 
 Gui, Add, Text, x10 yp+15, Weapon Toggle group
 ADHD.gui_add("DropDownList", "WeaponToggle", "xp+115 yp-2 W50", "None|1|2|3|4|5|6|7|8|9|0", "None")
+WeaponToggle_TT := "The Weapon Group that contains the weapon you wish to toggle."
 
 Gui, Add, Text, x10 yp+30, Arm Lock Toggle key
 ADHD.gui_add("DropDownList", "ArmLockToggle", "xp+115 yp-2 W50", "None|7|8|9|0|L", "None")
+ArmLockToggle_TT := "The key that you bound to 'Arm Lock Toggle' in MWO. `nThis MUST be different to the key you bound to the 'Arm Lock Toggle' action on the Bindings tab."
 
 Gui, Add, GroupBox, x5 yp+35 w365 h40, Jump Jet Spam
 
@@ -117,7 +123,7 @@ JumpJetKey_TT := "The key bound to Jump Jets in MWO.`nOnly needed if you use the
 
 Gui, Add, Text, xp+75 yp+2, Jump Jet Spam Rate (ms)
 ADHD.gui_add("Edit", "JumpJetRate", "xp+130 yp-2 W50", "", "250")
-JumpJetKey_TT := "The rate at which Jump Jet Spam hits the Jump Jet key (in ms).`nOnly needed if you use the 'Jump Jet Spam' feature."
+JumpJetRate_TT := "The rate at which Jump Jet Spam hits the Jump Jet key (in ms).`nOnly needed if you use the 'Jump Jet Spam' feature."
 
 Gui, Add, Text, x5 yp+40, Scroll Lock indicates status of
 ADHD.gui_add("DropDownList", "ScrollLockSetting", "xp+150 yp-4", "None|Weapon Toggle|Arm Lock Toggle|Fire Rate|Fire Mode", "None")
@@ -405,7 +411,9 @@ Fire:
 	; Many games do not work properly with autofire unless this is enabled.
 	; You can try leaving it out.
 	; MechWarrior Online for example will not do fast (<~500ms) chain fire with weapons all in one group without this enabled
-	ADHD.send_keyup_on_press("Fire","unmodified")
+	if (KeyupOnFire){
+		ADHD.send_keyup_on_press("Fire","unmodified")
+	}
 
 
 	; If we clicked the button too early, play a sound and schedule a click when it is OK to fire

@@ -6,7 +6,12 @@ Key:
 = : Change / Fix
 + : Added feature
 
-3.0.4 25th Feb 2014
+3.0.4 26th Feb 2014
+= Reorganize of the Main tab, things are now grouped by Action.
++ "Send key up on Fire" option added to Fire Timing
+  This setting in effect alters the "pass-through" state of the button you bound to the Fire action.
+  Please consult the documentation or the tooltip of this item for more info.
+= All items on the Main tab now have info tooltips.
 = Hotkeys should no longer fire on the MWO login screen.
   eg no more L in the login box if you use Shift!
   If this feature does not work for you (or all hotkeys stop working!),please let me know.
