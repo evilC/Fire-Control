@@ -87,35 +87,43 @@ Gui, Tab, 1
 
 ; Create normal label
 fs_w := ADHD.private.gui_w - 135
-Gui, Add, Text, x5 y40, Fire Sequence
+Gui, Add, GroupBox, x5 y30 w365 h90, Fire Timing
+
+Gui, Add, Text, x10 y45, Fire Sequence
+
 ; Create Edit box that has state saved in INI
-ADHD.gui_add("Edit", "FireSequence", "xp+120 yp-2 W" fs_w                       , "", "")
+ADHD.gui_add("Edit", "FireSequence", "xp+115 yp-2 W" fs_w                       , "", "")
 ; Create tooltip by adding _TT to the end of the Variable Name of a control
 FireSequence_TT := "A comma separated list of keys to hit - eg 1,2,3,4"
 
-Gui, Add, Text, x5 yp+30, Fire Rate (ms)
-ADHD.gui_add("Edit", "FireRate", "xp+120 yp-2 W50", "", 100)
+Gui, Add, Text, x10 yp+30, Fire Rate (ms)
+ADHD.gui_add("Edit", "FireRate", "xp+115 yp-2 W50", "", 100)
 
-Gui, Add, Text, x5 yp+30, Weapon Toggle group
-ADHD.gui_add("DropDownList", "WeaponToggle", "xp+120 yp-2 W50", "None|1|2|3|4|5|6|7|8|9|0", "None")
+ADHD.gui_add("CheckBox", "LimitFire", "x10 yp+25", "Limit fire rate to specified rate (Stop 'Over-Clicking')", 0)
 
-Gui, Add, Text, x5 yp+30, Arm Lock Toggle key
-ADHD.gui_add("DropDownList", "ArmLockToggle", "xp+120 yp-2 W50", "None|7|8|9|0|L", "None")
+Gui, Add, GroupBox, x5 yp+30 w365 h70, Toggles
 
-ADHD.gui_add("CheckBox", "LimitFire", "x5 yp+30", "Limit fire rate to specified rate (Stop 'Over-Clicking')", 0)
+Gui, Add, Text, x10 yp+15, Weapon Toggle group
+ADHD.gui_add("DropDownList", "WeaponToggle", "xp+115 yp-2 W50", "None|1|2|3|4|5|6|7|8|9|0", "None")
 
-Gui, Add, Text, x5 yp+30, Scroll Lock indicates status of
-ADHD.gui_add("DropDownList", "ScrollLockSetting", "xp+150 yp-2", "None|Weapon Toggle|Arm Lock Toggle|Fire Rate|Fire Mode", "None")
+Gui, Add, Text, x10 yp+30, Arm Lock Toggle key
+ADHD.gui_add("DropDownList", "ArmLockToggle", "xp+115 yp-2 W50", "None|7|8|9|0|L", "None")
 
-Gui, Add, Text, x5 yp+35, MWO Jump Jet key
-ADHD.gui_add("Edit", "JumpJetKey", "xp+100 yp-2 W50", "", "Space")
+Gui, Add, GroupBox, x5 yp+35 w365 h40, Jump Jet Spam
+
+Gui, Add, Text, x10 yp+15, MWO Jump Jet key
+ADHD.gui_add("Edit", "JumpJetKey", "xp+95 yp-2 W50", "", "Space")
 JumpJetKey_TT := "The key bound to Jump Jets in MWO.`nOnly needed if you use the 'Jump Jet Spam' feature."
 
-Gui, Add, Text, xp+80 yp+2, Jump Jet Spam Rate (ms)
+Gui, Add, Text, xp+75 yp+2, Jump Jet Spam Rate (ms)
 ADHD.gui_add("Edit", "JumpJetRate", "xp+130 yp-2 W50", "", "250")
 JumpJetKey_TT := "The rate at which Jump Jet Spam hits the Jump Jet key (in ms).`nOnly needed if you use the 'Jump Jet Spam' feature."
 
-Gui, Add, Link, x5 yp+40, Works with many games, perfect for <a href="http://mwomercs.com">MechWarrior Online</a> (FREE GAME!)
+Gui, Add, Text, x5 yp+40, Scroll Lock indicates status of
+ADHD.gui_add("DropDownList", "ScrollLockSetting", "xp+150 yp-4", "None|Weapon Toggle|Arm Lock Toggle|Fire Rate|Fire Mode", "None")
+
+
+;Gui, Add, Link, x5 yp+25, Works with many games, perfect for <a href="http://mwomercs.com">MechWarrior Online</a> (FREE GAME!)
 
 ; End GUI creation section
 ; ============================================================================================
