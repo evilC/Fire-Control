@@ -6,7 +6,7 @@ Key:
 = : Change / Fix
 + : Added feature
 
-3.0.5 11th Mar 2014
+3.0.5 11th Apr 2014
 * "MWO Jump Jet Key" setting now actually takes effect
 
 3.0.4 26th Feb 2014
