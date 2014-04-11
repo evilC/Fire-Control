@@ -6,6 +6,9 @@ Key:
 = : Change / Fix
 + : Added feature
 
+3.0.5 11th Mar 2014
+* "MWO Jump Jet Key" setting now actually takes effect
+
 3.0.4 26th Feb 2014
 = Reorganize of the Main tab, things are now grouped by Action.
 + "Send key up on Fire" option added to Fire Timing
