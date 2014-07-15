@@ -2,8 +2,8 @@
 
 /*
 ToDo:
-* Disable hotkeys (eg Arm Lock Toggle) in login screen? Should be able to detect specific window size
-* Arm Lock toggle option to hotkey box or plain edit box
+* Disable hotkeys (eg Arm Lock Momentary) in login screen? Should be able to detect specific window size
+* Arm Lock Momentary option to hotkey box or plain edit box
 
 BUGS:
 
@@ -36,7 +36,7 @@ SetKeyDelay, 0, 50
 
 ; Stuff for the About box
 
-ADHD.config_about({name: "Fire Control", version: "3.0.5", author: "evilC", link: "<a href=""https://github.com/evilC/Fire-Control/wiki"">Instructions</a>   /   <a href=""http://mwomercs.com/forums/topic/125457-"">Discussion Thread</a>"})
+ADHD.config_about({name: "Fire Control", version: "3.0.6", author: "evilC", link: "<a href=""https://github.com/evilC/Fire-Control/wiki"">Instructions</a>   /   <a href=""http://mwomercs.com/forums/topic/125457-"">Discussion Thread</a>"})
 ; The default application to limit hotkeys to.
 ; Starts disabled by default, so no danger setting to whatever you want
 ADHD.config_limit_app("CryENGINE")
@@ -53,7 +53,7 @@ ADHD.config_updates("http://evilc.com/files/ahk/mwo/firectrl/firectrl.au.txt")
 ADHD.config_hotkey_add({uiname: "Fire", subroutine: "Fire"})
 ADHD.config_hotkey_add({uiname: "Change Fire Rate", subroutine: "ChangeFireRate"})
 ADHD.config_hotkey_add({uiname: "Weapon Toggle", subroutine: "WeaponToggle"})
-ADHD.config_hotkey_add({uiname: "Arm Lock Toggle", subroutine: "ArmLockToggle"})
+ADHD.config_hotkey_add({uiname: "Arm Lock Momentary", subroutine: "ArmLockMomentary"})
 ADHD.config_hotkey_add({uiname: "Fire Mode Toggle", subroutine: "FireModeToggle"})
 ADHD.config_hotkey_add({uiname: "Jump Jet Spam", subroutine: "JumpJetSpam", tooltip: "Jump Jet spam will hit the Jump Jet key (Specified on the Main tab) quickly.`nThis helps prevent RSI when climbing hills etc."})
 ;ADHD.config_hotkey_add({uiname: "Functionality Toggle", subroutine: "FunctionalityToggle"})
@@ -108,12 +108,12 @@ ADHD.gui_add("CheckBox", "LimitFire", "x10 yp+21", "Limit fire rate to specified
 Gui, Add, GroupBox, x5 yp+30 w365 h70, Toggles
 
 Gui, Add, Text, x10 yp+15, Weapon Toggle group
-ADHD.gui_add("DropDownList", "WeaponToggle", "xp+115 yp-2 W50", "None|1|2|3|4|5|6|7|8|9|0", "None")
+ADHD.gui_add("DropDownList", "WeaponToggle", "xp+130 yp-2 W50", "None|1|2|3|4|5|6|7|8|9|0", "None")
 WeaponToggle_TT := "The Weapon Group that contains the weapon you wish to toggle."
 
 Gui, Add, Text, x10 yp+30, Arm Lock Toggle key
-ADHD.gui_add("DropDownList", "ArmLockToggle", "xp+115 yp-2 W50", "None|7|8|9|0|L", "None")
-ArmLockToggle_TT := "The key that you bound to 'Arm Lock Toggle' in MWO. `nThis MUST be different to the key you bound to the 'Arm Lock Toggle' action on the Bindings tab."
+ADHD.gui_add("DropDownList", "ArmLockMomentary", "xp+130 yp-2 W50", "None|7|8|9|0|L", "None")
+ArmLockMomentary_TT := "The key that you bound to 'Arm Lock Toggle' in MWO. `nThis MUST be different to the key you bound to the 'Arm Lock Momentary' action on the Bindings tab."
 
 Gui, Add, GroupBox, x5 yp+35 w365 h40, Jump Jet Spam
 
@@ -126,7 +126,7 @@ ADHD.gui_add("Edit", "JumpJetRate", "xp+130 yp-2 W50", "", "250")
 JumpJetRate_TT := "The rate at which Jump Jet Spam hits the Jump Jet key (in ms).`nOnly needed if you use the 'Jump Jet Spam' feature."
 
 Gui, Add, Text, x5 yp+40, Scroll Lock indicates status of
-ADHD.gui_add("DropDownList", "ScrollLockSetting", "xp+150 yp-4", "None|Weapon Toggle|Arm Lock Toggle|Fire Rate|Fire Mode", "None")
+ADHD.gui_add("DropDownList", "ScrollLockSetting", "xp+150 yp-4", "None|Weapon Toggle|Arm Lock Momentary|Fire Rate|Fire Mode", "None")
 
 
 ;Gui, Add, Link, x5 yp+25, Works with many games, perfect for <a href="http://mwomercs.com">MechWarrior Online</a> (FREE GAME!)
@@ -137,7 +137,7 @@ ADHD.gui_add("DropDownList", "ScrollLockSetting", "xp+150 yp-4", "None|Weapon To
 ADHD.finish_startup()
 fire_divider := 1
 last_divider := 1
-arm_lock_toggle_mode := false
+arm_lock_momentary_mode := false
 weapon_toggle_mode := false
 jj_active := 0
 disable_hotkeys := 0
@@ -244,24 +244,28 @@ DisableToggle:
 	Send {%tmp% up}
 	return
 
-; Turn the arm lock toggle on
-EnableArmLockToggle:
-	if (ScrollLockSetting == "Arm Lock Toggle"){
-		SetScrollLockState, On
+; Turn the Arm Lock Momentary on
+EnableArmLockMomentary:
+	if (!arm_lock_momentary_mode){
+		if (ScrollLockSetting == "Arm Lock Momentary"){
+			SetScrollLockState, On
+		}
+		arm_lock_momentary_mode := true
+		StringLower, tmp, ArmLockMomentary
+		Send {%tmp%}
 	}
-	arm_lock_toggle_mode := true
-	StringLower, tmp, ArmLockToggle
-	Send {%tmp% down}
 	return
 
 ; Turn the arm lock off
-DisableArmLockToggle:
-	if (ScrollLockSetting == "Arm Lock Toggle"){
-		SetScrollLockState, Off
+DisableArmLockMomentary:
+	if (arm_lock_momentary_mode){
+		if (ScrollLockSetting == "Arm Lock Momentary"){
+			SetScrollLockState, Off
+		}
+		arm_lock_momentary_mode := false
+		StringLower, tmp, ArmLockMomentary
+		Send {%tmp%}
 	}
-	arm_lock_toggle_mode := false
-	StringLower, tmp, ArmLockToggle
-	Send {%tmp% up}
 	return
 
 ; Keep all timer disables in here so various hooks and stuff can stop all your timers easily.
@@ -291,13 +295,13 @@ firectrl_init(){
 	global fire_divider
 	global nextfire := 0		; A timer for when we are next allowed to press the fire button
 	global weapon_toggle_mode
-	global arm_lock_toggle_mode
+	global arm_lock_momentary_mode
 	global fire_on := 0
 	
 	gosub, DisableTimers
 
-	if (arm_lock_toggle_mode){
-		Gosub, DisableArmLockToggle
+	if (arm_lock_momentary_mode){
+		Gosub, DisableArmLockMomentary
 	}
 	if (weapon_toggle_mode){
 		Gosub, DisableToggle
@@ -473,16 +477,20 @@ WeaponToggle:
 	}
 	return
 
-ArmLockToggle:
+ArmLockMomentary:
 	if (disable_hotkeys){
 		return
 	}
-	if (arm_lock_toggle_mode){
-		Gosub, DisableArmLockToggle
-	} else {
-		Gosub, EnableArmLockToggle
-	}
+
+	Gosub, EnableArmLockMomentary
 	return
+
+ArmLockMomentaryUp:
+	if (disable_hotkeys){
+		return
+	}
+	Gosub, DisableArmLockMomentary
+	return	
 
 JumpJetSpam:
 	if (disable_hotkeys){

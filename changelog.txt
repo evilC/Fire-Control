@@ -6,6 +6,12 @@ Key:
 = : Change / Fix
 + : Added feature
 
+3.0.6 16th July 2014
+! If you previously used Arm Lock Toggle, please make sure Arm Lock Momentary is disabled!
+= Arm Lock Toggle is now Arm Lock Momentary
+  PGI made Arm Lock Toggle a proper toggle, but did not also leave the old "Momentary" method in.
+  So for those that preferred the old way, they can now use Fire Control to replicate the old behavior.
+
 3.0.5 11th Apr 2014
 * "MWO Jump Jet Key" setting now actually takes effect
 
