@@ -36,7 +36,7 @@ SetKeyDelay, 0, 50
 
 ; Stuff for the About box
 
-ADHD.config_about({name: "Fire Control", version: "3.0.6", author: "evilC", link: "<a href=""https://github.com/evilC/Fire-Control/wiki"">Instructions</a>   /   <a href=""http://mwomercs.com/forums/topic/125457-"">Discussion Thread</a>"})
+ADHD.config_about({name: "Fire Control", version: "3.0.7", author: "evilC", link: "<a href=""https://github.com/evilC/Fire-Control/wiki"">Instructions</a>   /   <a href=""http://mwomercs.com/forums/topic/125457-"">Discussion Thread</a>"})
 ; The default application to limit hotkeys to.
 ; Starts disabled by default, so no danger setting to whatever you want
 ADHD.config_limit_app("CryENGINE")
@@ -173,7 +173,7 @@ DoFire:
 		if (tmp == ""){
 			return
 		}
-		Send {%tmp% down}
+		Send % "{Blind}{" tmp " down}"
 	} else {
 		; If it is the first shot, process stagger...
 		if (fire_array_count == 1 && stagger_array[current_weapon] != ""){
@@ -183,7 +183,7 @@ DoFire:
 			nextfire := now + (FireRate / fire_divider)
 			SetFireTimer(1,false)
 		}
-		Send % out
+		Send % "{Blind}" out
 	}
 	/*
 	; If fire rate changes mid-fire, stop the timer and re-start it at new rate
@@ -231,7 +231,7 @@ EnableToggle:
 	}
 	weapon_toggle_mode := true
 	StringLower, tmp, WeaponToggle
-	Send {%tmp% down}
+	Send % "{Blind}{" tmp " down}"
 	return
 
 ; Turn the weapon toggle off
@@ -241,7 +241,7 @@ DisableToggle:
 	}
 	weapon_toggle_mode := false
 	StringLower, tmp, WeaponToggle
-	Send {%tmp% up}
+	Send % "{Blind}{" tmp " up}"
 	return
 
 ; Turn the Arm Lock Momentary on
@@ -252,7 +252,7 @@ EnableArmLockMomentary:
 		}
 		arm_lock_momentary_mode := true
 		StringLower, tmp, ArmLockMomentary
-		Send {%tmp%}
+		Send % "{Blind}{" tmp "}"
 	}
 	return
 
@@ -264,7 +264,7 @@ DisableArmLockMomentary:
 		}
 		arm_lock_momentary_mode := false
 		StringLower, tmp, ArmLockMomentary
-		Send {%tmp%}
+		Send % "{Blind}{" tmp "}"
 	}
 	return
 
@@ -438,7 +438,7 @@ FireUp:
 	if (fire_on){
 		; Send up event for held key
 		tmp := groupmode_array[1]
-		Send {%tmp% up}
+		Send % "{Blind}{" tmp " up}"
 	}
 	fire_on := 0
 	; Kill the timer when the key is released (Stop auto firing)
@@ -509,9 +509,9 @@ JumpJetSpamUp:
 	return
 
 do_jj:
-	Send {%JumpJetKey% down}
+	Send % "{Blind}{" JumpJetKey " down}"
 	Sleep, 100
-	Send {%JumpJetKey% up}
+	Send % "{Blind}{" JumpJetKey " up}"
 	return
 
 FireModeToggle:
@@ -525,7 +525,7 @@ FireModeToggle:
 		if(fire_on){
 			; Send up event for held key
 			tmp := groupmode_array[1]
-			Send {%tmp% up}
+			Send % "{Blind}{" tmp " up}"
 			Gosub, DoFire
 		}
 	}

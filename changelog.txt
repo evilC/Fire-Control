@@ -6,6 +6,11 @@ Key:
 = : Change / Fix
 + : Added feature
 
+3.0.7 30th Jan 2017
+= Now uses {Blind} Send - should work better with foreign keyboards.
+  Should also alleviate issues with CapsLock being on while keys are sent.
+  This will also mean that multiple chars in Fire Sequence box (eg 11,22) will no longer work
+
 3.0.6 16th July 2014
 ! If you previously used Arm Lock Toggle, please make sure Arm Lock Momentary is disabled!
 = Arm Lock Toggle is now Arm Lock Momentary
