@@ -2,3 +2,5 @@
 *.exe
 *.zip
 *.lnk
+msvcr100.dll
+_Ignore
