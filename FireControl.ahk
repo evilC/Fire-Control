@@ -4,6 +4,8 @@
 #Include ..\AppFactory\Source\AppFactory.ahk
 #include CLR.ahk
 
+Version := "4.0.1"
+
 ; Load MicroTimer Lib
 dllname := "MicroTimer.dll"
 if (!FileExist(dllname)){
@@ -24,7 +26,7 @@ Factory.AddControl("FireRate", "Edit", "x+5 yp-3 w200", "500", Func("RateChanged
 
 SequencePos := 1
 
-Gui, Show, x0 y0, Fire Control
+Gui, Show, , % "Fire Control v" Version
 return
 
 GuiClose:
