@@ -4,7 +4,7 @@
 #Include ..\AppFactory\Source\AppFactory.ahk
 #include CLR.ahk
 
-Version := "4.0.1"
+Version := "4.0.2"
 
 ; Load MicroTimer Lib
 dllname := "MicroTimer.dll"
@@ -17,12 +17,15 @@ asm := CLR_LoadLibrary(dllname)
 MicroTimer := asm.CreateInstance("MicroTimer")
 
 Factory := new AppFactory()
-Gui, Add, Text, xm y+10 w80, Fire Button
-Factory.AddInputButton("HK1", "x+5 yp-3 w200", Func("InputEvent"))
-Gui, Add, Text, xm y+10 w80, Fire Sequence
-Factory.AddControl("FireSequence", "Edit", "x+5 yp-3 w200", "1,2,3,4", Func("SeqChanged"))
-Gui, Add, Text, xm y+10 w80, Fire Rate
+w1 := 90, w2 := 200
+Gui, Add, Text, % "xm y+10 w" w1, Fire Button
+Factory.AddInputButton("HK1", "x+5 yp-3 w" w2, Func("InputEvent"))
+Gui, Add, Text, % "xm y+10 w" w1, Fire Sequence
+Factory.AddControl("FireSequence", "Edit", "x+5 yp-3 w" w2, "1,2,3,4", Func("SeqChanged"))
+Gui, Add, Text, % "xm y+10 w" w1, Fire Rate
 Factory.AddControl("FireRate", "Edit", "x+5 yp-3 w200", "500", Func("RateChanged"))
+Gui, Add, Text, % "xm y+10 w" w1, Key Press Duration
+Factory.AddControl("KeyDelay", "Edit", "x+5 yp-3 w200", "50", Func("KeyDelayChanged"))
 
 SequencePos := 1
 
@@ -51,6 +54,10 @@ InputEvent(state){
 SeqChanged(state){
     global Factory, FireSequence
     FireSequence := StrSplit(state, ",", A_Space)
+}
+
+KeyDelayChanged(state){
+    SetKeyDelay, 0, % state
 }
 
 RateChanged(state){
