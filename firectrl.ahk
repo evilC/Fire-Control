@@ -21,7 +21,7 @@ Long-term:
 ADHD := New ADHDLib
 
 ; Ensure running as admin
-ADHD.run_as_admin()
+;~ ADHD.run_as_admin()
 
 ; ============================================================================================
 ; CONFIG SECTION - Configure ADHD
@@ -36,7 +36,7 @@ SetKeyDelay, 0, 50
 
 ; Stuff for the About box
 
-ADHD.config_about({name: "Fire Control", version: "3.0.7", author: "evilC", link: "<a href=""https://github.com/evilC/Fire-Control/wiki"">Instructions</a>   /   <a href=""http://mwomercs.com/forums/topic/125457-"">Discussion Thread</a>"})
+ADHD.config_about({name: "Fire Control", version: "3.0.8", author: "evilC", link: "<a href=""https://github.com/evilC/Fire-Control/wiki"">Instructions</a>   /   <a href=""http://mwomercs.com/forums/topic/125457-"">Discussion Thread</a>"})
 ; The default application to limit hotkeys to.
 ; Starts disabled by default, so no danger setting to whatever you want
 ADHD.config_limit_app("CryENGINE")
@@ -45,7 +45,7 @@ ADHD.config_limit_app("CryENGINE")
 ADHD.config_size(375,320)
 
 ; Configure update notifications:
-ADHD.config_updates("http://evilc.com/files/ahk/mwo/firectrl/firectrl.au.txt")
+ADHD.config_updates("https://raw.githubusercontent.com/evilC/Fire-Control/master/firectrl.au.txt")
 
 ; Defines your hotkeys
 ; subroutine is the label (subroutine name - like MySub: ) to be called on press of bound key
