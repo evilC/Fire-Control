@@ -6,6 +6,9 @@ Key:
 = : Change / Fix
 + : Added feature
 
+3.0.8 11th July 2022
+= evilC.com is down, so I moved update checking to GitHub
+
 3.0.7 30th Jan 2017
 = Now uses {Blind} Send - should work better with foreign keyboards.
   Should also alleviate issues with CapsLock being on while keys are sent.
