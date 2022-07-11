@@ -36,7 +36,7 @@ SetKeyDelay, 0, 50
 
 ; Stuff for the About box
 
-ADHD.config_about({name: "Fire Control", version: "3.0.7", author: "evilC", link: "<a href=""https://github.com/evilC/Fire-Control/wiki"">Instructions</a>   /   <a href=""http://mwomercs.com/forums/topic/125457-"">Discussion Thread</a>"})
+ADHD.config_about({name: "Fire Control", version: "3.0.8", author: "evilC", link: "<a href=""https://github.com/evilC/Fire-Control"">Website</a>   /   <a href=""http://mwomercs.com/forums/topic/125457-"">Discussion Thread</a>"})
 ; The default application to limit hotkeys to.
 ; Starts disabled by default, so no danger setting to whatever you want
 ADHD.config_limit_app("CryENGINE")
@@ -45,9 +45,9 @@ ADHD.config_limit_app("CryENGINE")
 ADHD.config_size(375,320)
 
 ; Configure update notifications:
-ADHD.config_updates("http://evilc.com/files/ahk/mwo/firectrl/firectrl.au.txt")
+ADHD.config_updates("https://raw.githubusercontent.com/evilC/Fire-Control/master/firectrl.au.txt")
 
-; Defines your hotkeys 
+; Defines your hotkeys
 ; subroutine is the label (subroutine name - like MySub: ) to be called on press of bound key
 ; uiname is what to refer to it as in the UI (ie Human readable, with spaces)
 ADHD.config_hotkey_add({uiname: "Fire", subroutine: "Fire"})
@@ -167,7 +167,7 @@ DoFire:
 	if (FireRate <= 0 || out == ""){
 		return
 	}
-	
+
 	if (groupmode){
 		tmp := groupmode_array[1]
 		if (tmp == ""){
@@ -211,7 +211,7 @@ SetFireTimer(mode,delay){
 
 	; Set last_divider, so we tell when the fire_divider changes
 	last_divider := fire_divider
-	
+
 	if(mode == 0){
 		Gosub, DisableTimers
 	} else {
@@ -297,7 +297,7 @@ firectrl_init(){
 	global weapon_toggle_mode
 	global arm_lock_momentary_mode
 	global fire_on := 0
-	
+
 	gosub, DisableTimers
 
 	if (arm_lock_momentary_mode){
@@ -306,14 +306,14 @@ firectrl_init(){
 	if (weapon_toggle_mode){
 		Gosub, DisableToggle
 	}
-	
+
 	; This gets called in Program Mode, so now would be a good time to re-initialize
-	
+
 	; Reset fire rate if on double rate
 	if (fire_divider != 1){
 		Gosub, ChangeFireRate
 	}
-	
+
 	; Split FireSequence box from comma separated list to array
 	;StringSplit, tmp, FireSequence, `,
 	; Strip all spaces
@@ -374,7 +374,7 @@ app_inactive_hook(){
 resolution_changed_hook(){
 	global ADHD
 	global disable_hotkeys
-	
+
 	curr_size := ADHD.limit_app_get_size()
 	last_size := ADHD.limit_app_get_last_size()
 	ADHD.debug("Res change: " curr_size.w "x" curr_size.h " --> " last_size.w "x" last_size.h)
@@ -387,7 +387,7 @@ resolution_changed_hook(){
 		; Got smaller
 		ADHD.debug("FC: Res got smaller")
 		;firectrl_init()
-		;Gosub, DisableTimers		
+		;Gosub, DisableTimers
 	}
 	return
 }
@@ -411,7 +411,7 @@ Fire:
 	} else {
 		return
 	}
-	
+
 	; Many games do not work properly with autofire unless this is enabled.
 	; You can try leaving it out.
 	; MechWarrior Online for example will not do fast (<~500ms) chain fire with weapons all in one group without this enabled
@@ -427,7 +427,7 @@ Fire:
 		SetFireTimer(1,true)
 		return
 	}
-	
+
 	; Fire Lazors !!!
 	GoSub, DoFire
 
@@ -490,7 +490,7 @@ ArmLockMomentaryUp:
 		return
 	}
 	Gosub, DisableArmLockMomentary
-	return	
+	return
 
 JumpJetSpam:
 	if (disable_hotkeys){
