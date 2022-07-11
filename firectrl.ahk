@@ -21,7 +21,7 @@ Long-term:
 ADHD := New ADHDLib
 
 ; Ensure running as admin
-;~ ADHD.run_as_admin()
+ADHD.run_as_admin()
 
 ; ============================================================================================
 ; CONFIG SECTION - Configure ADHD
